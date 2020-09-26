@@ -1,0 +1,77 @@
+﻿using SecureWebApi.Shared.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace SecureWebApi.Shared.Services
+{
+    public interface IUserService
+    {
+        List<UserModel> GetUsers();
+
+        UserModel GetUserById(Guid id);
+
+        bool CreateUser(UserModel u);
+
+        bool UpdateUser(UserModel u);
+
+        bool DeleteUser(Guid id);
+
+        string Login(string username, string password);
+    }
+
+    public class MemoryUserService : IUserService
+    {
+        private static List<UserModel> users = new List<UserModel>
+        {
+            new UserModel { Id = new Guid("474d5198-4467-4e48-93a0-77a57d835fca"), Username = "user1", Password = "24c9e15e52afc47c225b757e7bee1f9d".ToUpper(), Roles = new List<UserModel.Role>{ UserModel.Role.FreeUser } },
+            new UserModel { Id = new Guid("b6342620-5a61-460d-9b96-753f8cabb143"), Username = "user2", Password = "7e58d63b60197ceb55a1c487989a3720".ToUpper(), Roles = new List<UserModel.Role>{ UserModel.Role.FreeUser, UserModel.Role.Admin } },
+        };
+
+        public bool CreateUser(UserModel u)
+        {
+            users.Add(u);
+
+            return true;
+        }
+
+        public bool DeleteUser(Guid id)
+        {
+            users = users.Where(x => x.Id != id).ToList();
+
+            return true;
+        }
+
+        public UserModel GetUserById(Guid id)
+        {
+            return users.Single(x => x.Id == id);
+        }
+
+        public List<UserModel> GetUsers()
+        {
+            return users;
+        }
+
+        public string Login(string username, string password)
+        {
+            var hashedPassword = Helpers.Crypto.MD5.CreateMD5(password);
+
+            var user = users.Where(x => x.Username == username && x.Password == hashedPassword).FirstOrDefault();
+
+            if (user == null)
+                return "";
+
+            var accessToken = Helpers.Authentication.TokenHelper.CreateToken(user, "20ddfb841b924343b60affc56b2267c5", "jwtIssuer", "jwtAudience"); // TODO: refactor static strings
+
+            return accessToken;
+        }
+
+        public bool UpdateUser(UserModel u)
+        {
+            var user = users.Where(x => x.Id == u.Id).FirstOrDefault();
+            user = u;
+
+            return true;
+        }
+    }
+}
