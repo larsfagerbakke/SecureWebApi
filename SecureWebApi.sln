@@ -7,7 +7,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecureWebApi", "SecureWebAp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecureWebApi.Shared", "SecureWebApi.Shared\SecureWebApi.Shared.csproj", "{F2B46F25-CB61-4ACD-9DF6-146B6D70383F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecureWebApi.Test", "SecureWebApi.Test\SecureWebApi.Test.csproj", "{B111AECB-BFAD-4682-BE52-64D0FBE26E47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecureWebApi.Test", "SecureWebApi.Test\SecureWebApi.Test.csproj", "{B111AECB-BFAD-4682-BE52-64D0FBE26E47}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D0EEC85B-04DA-4F3B-B291-2FB436BD6805}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		Readme.md = Readme.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
