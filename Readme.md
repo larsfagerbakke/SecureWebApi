@@ -11,6 +11,6 @@ This is a basis for a secure serverless web api. Firstly, it's a basic implement
 - Move stuff to configuration (I see you jwtKey)
 - Tests
 
-### Contribute?
+#### Contribute?
 
 Feel free to drop me a message. Mail on contact page. Create pull request :-).
