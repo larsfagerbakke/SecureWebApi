@@ -22,11 +22,18 @@ namespace SecureWebApi.Shared.Services
 
     public class MemoryUserService : IUserService
     {
+        private readonly ConfigurationService config;
+
         private static List<UserModel> users = new List<UserModel>
         {
             new UserModel { Id = new Guid("474d5198-4467-4e48-93a0-77a57d835fca"), Username = "user1", Password = "24c9e15e52afc47c225b757e7bee1f9d".ToUpper(), Roles = new List<UserModel.Role>{ UserModel.Role.FreeUser } },
             new UserModel { Id = new Guid("b6342620-5a61-460d-9b96-753f8cabb143"), Username = "user2", Password = "7e58d63b60197ceb55a1c487989a3720".ToUpper(), Roles = new List<UserModel.Role>{ UserModel.Role.FreeUser, UserModel.Role.Admin } },
         };
+
+        public MemoryUserService(ConfigurationService config)
+        {
+            this.config = config;
+        }
 
         public bool CreateUser(UserModel u)
         {
@@ -61,7 +68,7 @@ namespace SecureWebApi.Shared.Services
             if (user == null)
                 return "";
 
-            var accessToken = Helpers.Authentication.TokenHelper.CreateToken(user, "20ddfb841b924343b60affc56b2267c5", "jwtIssuer", "jwtAudience"); // TODO: refactor static strings
+            var accessToken = Helpers.Authentication.TokenHelper.CreateToken(user, config.jwtKey, config.jwtIssuer, config.jwtAudience);
 
             return accessToken;
         }

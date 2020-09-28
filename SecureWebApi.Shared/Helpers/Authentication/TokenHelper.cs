@@ -37,11 +37,6 @@ namespace SecureWebApi.Shared.Helpers.Authentication
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public static string CreateToken(UserModel user, JObject configuration)
-        {
-            return CreateToken(user, configuration["JwtKey"].Value<string>(), configuration["JwtIssuer"].Value<string>(), configuration["JwtAudience"].Value<string>());
-        }
-
         public static UserModel ReadToken(string tokenString, string jwtKey, string jwtIssuer, string jwtAudience)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
@@ -71,11 +66,6 @@ namespace SecureWebApi.Shared.Helpers.Authentication
             };
 
             return user;
-        }
-
-        public static UserModel ReadToken(string tokenString, JObject configuration)
-        {
-            return ReadToken(tokenString, configuration["JwtKey"].Value<string>(), configuration["JwtIssuer"].Value<string>(), configuration["JwtAudience"].Value<string>());
         }
     }
 }
