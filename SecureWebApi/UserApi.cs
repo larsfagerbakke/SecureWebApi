@@ -44,5 +44,22 @@ namespace SecureWebApi
 
             return new OkObjectResult(user);
         }
+
+        [FunctionName("Register")]
+        public async Task<IActionResult> RegisterUser([HttpTrigger(AuthorizationLevel.Function, "post", Route = "v1/register")] HttpRequest req, ILogger log)
+        {
+            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+
+            var requestData = JsonConvert.DeserializeObject<RegisterModel>(requestBody);
+
+            var accessToken = userService.CreateUser(new Shared.Models.UserModel
+            {
+                Username = requestData.Username,
+                Password = requestData.Password,
+                Email = requestData.Email
+            });
+
+            return new OkObjectResult(accessToken);
+        }
     }
 }

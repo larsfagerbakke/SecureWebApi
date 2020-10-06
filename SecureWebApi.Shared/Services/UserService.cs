@@ -11,7 +11,7 @@ namespace SecureWebApi.Shared.Services
 
         UserModel GetUserById(Guid id);
 
-        bool CreateUser(UserModel u);
+        string CreateUser(UserModel u);
 
         bool UpdateUser(UserModel u);
 
@@ -35,11 +35,16 @@ namespace SecureWebApi.Shared.Services
             this.config = config;
         }
 
-        public bool CreateUser(UserModel u)
+        public string CreateUser(UserModel u)
         {
+            u.Id = Guid.NewGuid();
+            u.Password = Helpers.Crypto.MD5.CreateMD5(u.Password);
+
             users.Add(u);
 
-            return true;
+            var accessToken = Helpers.Authentication.TokenHelper.CreateToken(u, config.jwtKey, config.jwtIssuer, config.jwtAudience);
+
+            return accessToken;
         }
 
         public bool DeleteUser(Guid id)
