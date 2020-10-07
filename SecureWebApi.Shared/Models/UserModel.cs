@@ -22,5 +22,10 @@ namespace SecureWebApi.Shared.Models
         {
             this.Password = string.Empty;
         }
+
+        public override string ToString()
+        {
+            return $"{this.Username}({this.Email})";
+        }
     }
 }
