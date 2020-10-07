@@ -56,7 +56,8 @@ namespace SecureWebApi
             {
                 Username = requestData.Username,
                 Password = requestData.Password,
-                Email = requestData.Email
+                Email = requestData.Email,
+                Roles = new System.Collections.Generic.List<Shared.Models.UserModel.Role> { Shared.Models.UserModel.Role.FreeUser }
             });
 
             return new OkObjectResult(accessToken);
