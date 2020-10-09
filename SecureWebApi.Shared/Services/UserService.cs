@@ -38,6 +38,7 @@ namespace SecureWebApi.Shared.Services
         public string CreateUser(UserModel u)
         {
             u.Id = Guid.NewGuid();
+            u.Username = $"{u.Username}.{Helpers.Util.Math.GenerateNumberBetween(10000, 99999)}";
             u.Password = Helpers.Crypto.MD5.CreateMD5(u.Password);
 
             users.Add(u);
