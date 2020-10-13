@@ -20,8 +20,15 @@ namespace SecureWebApi
             this.userService = userService;
         }
 
+        /// <summary>
+        /// Returns access and refresh tokens after validating user
+        /// </summary>
+        /// <param name="req">Http request</param>
+        /// <param name="log">Azure functions log object</param>
+        /// <returns>Returns access and refresh tokens</returns>
+        /// <response code="200">Returns access and refresh tokens</response>
         [FunctionName("Login")]
-        public async Task<IActionResult> PostLogin([HttpTrigger(AuthorizationLevel.Function, "Post", Route = "v1/login")] HttpRequest req, ILogger log)
+        public async Task<IActionResult> Login([HttpTrigger(AuthorizationLevel.Function, "Post", Route = "v1/login")] HttpRequest req, ILogger log)
         {
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
 
@@ -34,6 +41,15 @@ namespace SecureWebApi
             return new OkObjectResult(tokens);
         }
 
+        /// <summary>
+        /// Returns the requester user object
+        /// </summary>
+        /// <param name="req">Http request</param>
+        /// <param name="token">Accesstoken</param>
+        /// <param name="log">Azure functions log object</param>
+        /// <returns>Returns the requester user object</returns>
+        /// <response code="200">Returns the requester user object</response>
+        /// <response code="401">UnauthorizedResult</response> 
         [FunctionName("User")]
         public async Task<IActionResult> GetUser([HttpTrigger(AuthorizationLevel.Function, "get", Route = "v1/user")] HttpRequest req, [AccessTokenBinding] AccessTokenModel token, ILogger log)
         {
@@ -45,6 +61,14 @@ namespace SecureWebApi
             return new OkObjectResult(user);
         }
 
+        /// <summary>
+        /// Returns access and refresh tokens after adding user
+        /// </summary>
+        /// <param name="req">Http request</param>
+        /// <param name="log">Azure functions log object</param>
+        /// <param name="body">[FromBody]RegisterModel object</param>
+        /// <returns>Returns access and refresh tokens</returns>
+        /// <response code="200">Returns access and refresh tokens</response>
         [FunctionName("Register")]
         public async Task<IActionResult> RegisterUser([HttpTrigger(AuthorizationLevel.Function, "post", Route = "v1/register")] HttpRequest req, ILogger log)
         {
@@ -63,6 +87,14 @@ namespace SecureWebApi
             return new OkObjectResult(tokens);
         }
 
+        /// <summary>
+        /// Returns access token and refreshed refresh token
+        /// </summary>
+        /// <param name="req">Http request</param>
+        /// <param name="token">Accesstoken</param>
+        /// <param name="log">Azure functions log object</param>
+        /// <returns>Returns access token and refreshed refresh token</returns>
+        /// <response code="200">Returns access token and refreshed refresh token</response>
         [FunctionName("RefreshToken")]
         public async Task<IActionResult> RefreshToken([HttpTrigger(AuthorizationLevel.Function, "post", Route = "v1/refreshtoken")] HttpRequest req, [AccessTokenBinding] AccessTokenModel token, ILogger log)
         {
