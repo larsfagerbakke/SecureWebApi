@@ -16,11 +16,13 @@ namespace SecureWebApi.Shared.Models
         public string Username { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public string RefreshToken { get; set; }
         public List<Role> Roles { get; set; }
 
         public void Clean()
         {
             this.Password = string.Empty;
+            this.RefreshToken = string.Empty;               // This will break in memory implementation of the user service.
         }
 
         public override string ToString()

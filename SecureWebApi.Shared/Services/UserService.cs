@@ -18,6 +18,8 @@ namespace SecureWebApi.Shared.Services
         bool DeleteUser(Guid id);
 
         string Login(string username, string password);
+
+        string RefreshToken(UserModel u);
     }
 
     public class MemoryUserService : IUserService
@@ -40,12 +42,13 @@ namespace SecureWebApi.Shared.Services
             u.Id = Guid.NewGuid();
             u.Username = $"{u.Username}.{Helpers.Util.Math.GenerateNumberBetween(10000, 99999)}";
             u.Password = Helpers.Crypto.MD5.CreateMD5(u.Password);
+            u.RefreshToken = Helpers.Util.Util.GenerateRandomString(32);
 
             users.Add(u);
 
             var accessToken = Helpers.Authentication.TokenHelper.CreateToken(u, config.jwtKey, config.jwtIssuer, config.jwtAudience);
 
-            return accessToken;
+            return $"{accessToken}:{u.RefreshToken}";
         }
 
         public bool DeleteUser(Guid id)
@@ -70,13 +73,14 @@ namespace SecureWebApi.Shared.Services
             var hashedPassword = Helpers.Crypto.MD5.CreateMD5(password);
 
             var user = users.Where(x => x.Username == username && x.Password == hashedPassword).FirstOrDefault();
+            user.RefreshToken = Helpers.Util.Util.GenerateRandomString(32);
 
             if (user == null)
                 return "";
 
             var accessToken = Helpers.Authentication.TokenHelper.CreateToken(user, config.jwtKey, config.jwtIssuer, config.jwtAudience);
 
-            return accessToken;
+            return $"{accessToken}:{user.RefreshToken}";
         }
 
         public bool UpdateUser(UserModel u)
@@ -85,6 +89,15 @@ namespace SecureWebApi.Shared.Services
             user = u;
 
             return true;
+        }
+
+        public string RefreshToken(UserModel u)
+        {
+            u.RefreshToken = Helpers.Util.Util.GenerateRandomString(32);
+
+            var accessToken = Helpers.Authentication.TokenHelper.CreateToken(u, config.jwtKey, config.jwtIssuer, config.jwtAudience);
+
+            return $"{accessToken}:{u.RefreshToken}";
         }
     }
 }

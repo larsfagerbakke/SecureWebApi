@@ -27,11 +27,11 @@ namespace SecureWebApi
 
             var login = JsonConvert.DeserializeObject<LoginModel>(requestBody);
 
-            var accessToken = userService.Login(login.Username, login.Password);
+            var tokens = userService.Login(login.Username, login.Password);
 
-            if (accessToken == null) return new BadRequestResult();
+            if (tokens == null) return new BadRequestResult();
 
-            return new OkObjectResult(accessToken);
+            return new OkObjectResult(tokens);
         }
 
         [FunctionName("User")]
@@ -52,7 +52,7 @@ namespace SecureWebApi
 
             var requestData = JsonConvert.DeserializeObject<RegisterModel>(requestBody);
 
-            var accessToken = userService.CreateUser(new Shared.Models.UserModel
+            var tokens = userService.CreateUser(new Shared.Models.UserModel
             {
                 Username = requestData.Username,
                 Password = requestData.Password,
@@ -60,7 +60,17 @@ namespace SecureWebApi
                 Roles = new System.Collections.Generic.List<Shared.Models.UserModel.Role> { Shared.Models.UserModel.Role.FreeUser }
             });
 
-            return new OkObjectResult(accessToken);
+            return new OkObjectResult(tokens);
+        }
+
+        [FunctionName("RefreshToken")]
+        public async Task<IActionResult> RefreshToken([HttpTrigger(AuthorizationLevel.Function, "post", Route = "v1/refreshtoken")] HttpRequest req, [AccessTokenBinding] AccessTokenModel token, ILogger log)
+        {
+            if (token.TokenState == AccessTokenModel.State.Invalid) return new UnauthorizedResult();
+
+            var user = userService.GetUserById(token.UserId);
+
+            return new OkObjectResult(userService.RefreshToken(user));
         }
     }
 }
