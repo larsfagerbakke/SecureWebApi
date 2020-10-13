@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SecureWebApi.Shared.Helpers.Util
+﻿namespace SecureWebApi.Shared.Helpers.Util
 {
     public class Math
     {

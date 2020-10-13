@@ -71,7 +71,7 @@ namespace SecureWebApi
 
     internal class AccessTokenProvider : IValueProvider
     {
-        private readonly ConfigurationService config; 
+        private readonly ConfigurationService config;
 
         private string accessToken;
 

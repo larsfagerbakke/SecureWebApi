@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SecureWebApi.Shared.Services
+﻿namespace SecureWebApi.Shared.Services
 {
     public class ConfigurationService
     {

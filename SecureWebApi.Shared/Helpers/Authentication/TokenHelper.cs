@@ -1,5 +1,4 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json.Linq;
 using SecureWebApi.Shared.Models;
 using System;
 using System.Collections.Generic;
