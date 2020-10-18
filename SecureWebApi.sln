@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecureWebApi", "SecureWebAp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecureWebApi.Shared", "SecureWebApi.Shared\SecureWebApi.Shared.csproj", "{F2B46F25-CB61-4ACD-9DF6-146B6D70383F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecureWebApi.Test", "SecureWebApi.Test\SecureWebApi.Test.csproj", "{B111AECB-BFAD-4682-BE52-64D0FBE26E47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecureWebApi.Tests", "SecureWebApi.Test\SecureWebApi.Tests.csproj", "{B111AECB-BFAD-4682-BE52-64D0FBE26E47}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D0EEC85B-04DA-4F3B-B291-2FB436BD6805}"
 	ProjectSection(SolutionItems) = preProject
@@ -16,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Readme.md = Readme.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecureWebApi.IntegrationTests", "SecureWebApi.IntegrationTests\SecureWebApi.IntegrationTests.csproj", "{B2B76367-3B6A-4C13-8155-D116932D7D4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SecureWebApi.IntegrationTests", "SecureWebApi.IntegrationTests\SecureWebApi.IntegrationTests.csproj", "{B2B76367-3B6A-4C13-8155-D116932D7D4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
