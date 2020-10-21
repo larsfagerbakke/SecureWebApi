@@ -125,13 +125,13 @@ namespace SecureWebApi
         [FunctionName("Activate")]
         public async Task<IActionResult> Activate([HttpTrigger(AuthorizationLevel.Function, "get", Route = "v1/user/activate")] HttpRequest req, ILogger log)
         {
-            if(req.Query.ContainsKey("code"))
+            if (req.Query.ContainsKey("code"))
             {
                 var activationCode = req.Query["code"];
 
                 var user = userService.GetUserByActivationCode(activationCode);
 
-                if( user != null)
+                if (user != null)
                 {
                     userService.ActivateUser(user.Id);
 

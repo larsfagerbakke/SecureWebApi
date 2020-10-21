@@ -34,6 +34,6 @@ namespace SecureWebApi.Shared.Models
 
         public bool IsActivated() => string.IsNullOrEmpty(ActivationCode);
 
-        
+
     }
 }

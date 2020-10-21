@@ -115,7 +115,7 @@ namespace SecureWebApi.Shared.Services
         {
             var user = GetUserById(id);
             user.ActivationCode = null;
-            
+
             return true;
         }
     }
