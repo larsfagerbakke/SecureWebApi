@@ -112,5 +112,34 @@ namespace SecureWebApi
 
             return new OkObjectResult(userService.RefreshToken(user));
         }
+
+        /// <summary>
+        /// Activates the user with code
+        /// </summary>
+        /// <verb>GET</verb>
+        /// <param name="req">Http request</param>
+        /// <param name="log">Azure functions log object</param>
+        /// <returns>If user is actived this returns OK</returns>
+        /// <response code="200">Operation was valid and user was activated</response>
+        /// <response code="400">Bad request</response>
+        [FunctionName("Activate")]
+        public async Task<IActionResult> Activate([HttpTrigger(AuthorizationLevel.Function, "get", Route = "v1/user/activate")] HttpRequest req, ILogger log)
+        {
+            if(req.Query.ContainsKey("code"))
+            {
+                var activationCode = req.Query["code"];
+
+                var user = userService.GetUserByActivationCode(activationCode);
+
+                if( user != null)
+                {
+                    userService.ActivateUser(user.Id);
+
+                    return new OkResult();
+                }
+            }
+
+            return new BadRequestResult();
+        }
     }
 }

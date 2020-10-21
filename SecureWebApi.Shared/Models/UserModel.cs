@@ -18,16 +18,22 @@ namespace SecureWebApi.Shared.Models
         public string Password { get; set; }
         public string RefreshToken { get; set; }
         public List<Role> Roles { get; set; }
-
-        public void Clean()
-        {
-            this.Password = string.Empty;
-            this.RefreshToken = string.Empty;               // This will break in memory implementation of the user service.
-        }
+        public string ActivationCode { get; set; }
+        public string ReferralCode { get; set; }
 
         public override string ToString()
         {
             return $"{this.Username}({this.Email})";
         }
+
+        public void Clean()
+        {
+            this.Password = string.Empty;
+            this.RefreshToken = string.Empty;                                               // This will break in memory implementation of the user service.
+        }
+
+        public bool IsActivated() => string.IsNullOrEmpty(ActivationCode);
+
+        
     }
 }
