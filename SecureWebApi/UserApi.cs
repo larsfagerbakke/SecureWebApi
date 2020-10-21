@@ -30,7 +30,7 @@ namespace SecureWebApi
         /// <returns>Returns access and refresh tokens</returns>
         /// <response code="200">Returns access and refresh tokens</response>
         [FunctionName("Login")]
-        public async Task<IActionResult> Login([HttpTrigger(AuthorizationLevel.Function, "Post", Route = "v1/login")] HttpRequest req, ILogger log)
+        public async Task<IActionResult> Login([HttpTrigger(AuthorizationLevel.Function, "Post", Route = "v1/user/login")] HttpRequest req, ILogger log)
         {
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
 
@@ -76,7 +76,7 @@ namespace SecureWebApi
         /// <returns>Returns access and refresh tokens</returns>
         /// <response code="200">Returns access and refresh tokens</response>
         [FunctionName("Register")]
-        public async Task<IActionResult> RegisterUser([HttpTrigger(AuthorizationLevel.Function, "post", Route = "v1/register")] HttpRequest req, ILogger log)
+        public async Task<IActionResult> RegisterUser([HttpTrigger(AuthorizationLevel.Function, "post", Route = "v1/user/register")] HttpRequest req, ILogger log)
         {
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
 
@@ -104,7 +104,7 @@ namespace SecureWebApi
         /// <returns>Returns access token and refreshed refresh token</returns>
         /// <response code="200">Returns access token and refreshed refresh token</response>
         [FunctionName("RefreshToken")]
-        public async Task<IActionResult> RefreshToken([HttpTrigger(AuthorizationLevel.Function, "post", Route = "v1/refreshtoken")] HttpRequest req, [AccessTokenBinding] AccessTokenModel token, ILogger log)
+        public async Task<IActionResult> RefreshToken([HttpTrigger(AuthorizationLevel.Function, "post", Route = "v1/user/refreshtoken")] HttpRequest req, [AccessTokenBinding] AccessTokenModel token, ILogger log)
         {
             if (token.TokenState == AccessTokenModel.State.Invalid) return new UnauthorizedResult();
 
