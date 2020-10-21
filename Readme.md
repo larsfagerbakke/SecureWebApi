@@ -20,6 +20,12 @@ In order to get this to work there needs to be file called "*local.settings.json
 
 ... and replace the values with your values :-).
 
+## Features
+
+- JWT
+- SMS integration ([Plivo.com](http://plivo.com))
+- Mail integration ([SendGrid.com](http://sendgrid.com))
+
 ## Todo
 
 - Tests
