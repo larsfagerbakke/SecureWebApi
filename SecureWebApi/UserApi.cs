@@ -24,7 +24,7 @@ namespace SecureWebApi
         /// Returns access and refresh tokens after validating user
         /// </summary>
         /// <verb>POST</verb>
-        /// <url>http://localhost:7071/api/v1/Login</url>
+        /// <url>http://localhost:7071/api/v1/user/login</url>
         /// <param name="req">Http request</param>
         /// <param name="log">Azure functions log object</param>
         /// <returns>Returns access and refresh tokens</returns>
@@ -47,7 +47,7 @@ namespace SecureWebApi
         /// Returns the requester user object
         /// </summary>
         /// <verb>GET</verb>
-        /// <url>http://localhost:7071/api/v1/User</url>
+        /// <url>http://localhost:7071/api/v1/user</url>
         /// <param name="req">Http request</param>
         /// <param name="token">Accesstoken</param>
         /// <param name="log">Azure functions log object</param>
@@ -69,7 +69,7 @@ namespace SecureWebApi
         /// Returns access and refresh tokens after adding user
         /// </summary>
         /// <verb>POST</verb>
-        /// <url>http://localhost:7071/api/v1/Register</url>
+        /// <url>http://localhost:7071/api/v1/user/register</url>
         /// <param name="req">Http request</param>
         /// <param name="log">Azure functions log object</param>
         /// <param name="body">[FromBody]RegisterModel object</param>
@@ -97,7 +97,7 @@ namespace SecureWebApi
         /// Returns access token and refreshed refresh token
         /// </summary>
         /// <verb>POST</verb>
-        /// <url>http://localhost:7071/api/v1/RefreshToken</url>
+        /// <url>http://localhost:7071/api/v1/user/refreshtoken</url>
         /// <param name="req">Http request</param>
         /// <param name="token">Accesstoken</param>
         /// <param name="log">Azure functions log object</param>
@@ -117,6 +117,7 @@ namespace SecureWebApi
         /// Activates the user with code
         /// </summary>
         /// <verb>GET</verb>
+        /// <url>http://localhost:7071/api/v1/user/activate</url>
         /// <param name="req">Http request</param>
         /// <param name="log">Azure functions log object</param>
         /// <returns>If user is actived this returns OK</returns>
